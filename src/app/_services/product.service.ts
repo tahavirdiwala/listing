@@ -2,7 +2,10 @@ import axios from "axios";
 
 class ProductService {
   getAll(payload = {}) {
-    return axios.post("http://localhost:3000/api/fetch/products", payload);
+    return axios.post(
+      "https://www.corporategear.com/api/fetch/products",
+      payload
+    );
   }
 }
 
