@@ -19,6 +19,15 @@ const listingPayload = {
   isUserLoggedIn: true,
 };
 
+const filterPayload = {
+  storeID: 5,
+  brandId: 3,
+  customerId: 0,
+  pageStartindex: 0,
+  pageEndindex: 0,
+  filterOptionforfaceteds: [],
+};
+
 const SortOptions: { name: string; type: Sort }[] = [
   {
     name: "Relevance",
@@ -50,4 +59,4 @@ const SortOptions: { name: string; type: Sort }[] = [
   },
 ];
 
-export { Sort, listingPayload, SortOptions };
+export { Sort, listingPayload, SortOptions, filterPayload };
