@@ -3,7 +3,11 @@ import axios from "axios";
 class ProductService {
   getAll(payload = {}) {
     //https://www.corporategear.com/api/fetch/products
-    return axios.post("http://localhost:3000/api/fetch/products", payload);
+    const mapper = {
+      local: "http://localhost:3000/api/fetch/products",
+      live: "https://www.corporategear.com/api/fetch/products"
+    }
+    return axios.post(mapper.live, payload);
   }
 
   categories(
@@ -17,8 +21,12 @@ class ProductService {
     }
   ) {
     // https://www.corporategear.com/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json
+    const mapper = {
+      local: "http://localhost:3000/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json",
+      live: "https://www.corporategear.com/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json"
+    }
     return axios.post(
-      "http://localhost:3000/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json",
+      mapper.live,
       payload
     );
   }
