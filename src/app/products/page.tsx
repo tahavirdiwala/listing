@@ -4,24 +4,16 @@ import productService from "../_services/product.service";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductCardSkeleton from "./_components/product-cart-skeleton";
 import { ProductListing } from "./_components/product-listing";
-
-const payload = {
-  sortBy: "relevance",
-  pageNo: 1,
-  facetsUrl: "",
-  filtersUrl: "",
-  pageId: 3,
-  seName: "men",
-  isBrand: false,
-  isUserLoggedIn: true,
-};
+import { listingPayload } from "../lib/constant";
+import { Sorting } from "./_components/sorting";
 
 const Products = () => {
   const [products, setProducts] = useState<any>([]);
+  const [sortBy, setSortBy] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchProducts = async ({ loadMore = false, ...obj }: any) => {
+  const fetchProducts = async ({ loadMore = false, ...obj }) => {
     if (!loadMore) setLoading(true);
 
     try {
@@ -61,22 +53,23 @@ const Products = () => {
   const loadMoreHandler = () => {
     const nextPage = +(localStorage.getItem("cPage") || 1) + 1;
     fetchProducts({
-      ...payload,
+      ...listingPayload,
       currentPage: nextPage,
       loadMore: true,
     });
   };
 
   useEffect(() => {
-    fetchProducts(payload);
-  }, []);
+    fetchProducts({ ...listingPayload, sortBy });
+  }, [sortBy]);
 
   const data = products?.data?.body?.toShow;
 
   return (
     <div className="flex justify-center m-5 flex-wrap gap-3">
+      <Sorting setSortBy={setSortBy} />
       <InfiniteScroll
-        key={payload.seName + payload.sortBy}
+        key={listingPayload.seName + listingPayload.sortBy}
         dataLength={data?.length || 0}
         next={loadMoreHandler}
         hasMore={hasMore}
@@ -87,8 +80,8 @@ const Products = () => {
         {loading ? (
           <ProductCardSkeleton />
         ) : (
-          data?.map((item: any) => {
-            return <ProductListing key={item.id} {...item} />;
+          data?.map((item: any, index: number) => {
+            return <ProductListing key={index} {...item} />;
           })
         )}
       </InfiniteScroll>
