@@ -23,7 +23,7 @@ class ProductService {
     // https://www.corporategear.com/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json
     const mapper = {
       local: "http://localhost:3000/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json",
-      live: "https://www.corporategear.com/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json"
+      live: "https://www.corporategear.com/api/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json"
     }
     return axios.post(
       mapper.live,

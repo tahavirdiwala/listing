@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ProductsList from "./_components";
+import ProductsList from "./_components/listing";
 
 const Products = () => {
   return (
