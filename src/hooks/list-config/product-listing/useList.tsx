@@ -1,9 +1,13 @@
 "use client";
 import productService from "@/app/_services/product.service";
+import { TProductList } from "@/types/productList";
+import { AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 
-export const useProductList = () => {
-  const [products, setProducts] = useState<any>([]);
+export const useList = () => {
+  const [products, setProducts] = useState<AxiosResponse<TProductList> | null>(
+    null
+  );
   const [sortBy, setSortBy] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -20,22 +24,30 @@ export const useProductList = () => {
       if (!loadMore) {
         setProducts(resp);
       } else {
-        setProducts((prev: any) => ({
-          ...resp,
-          data: {
-            ...resp?.data,
-            body: {
-              ...resp?.data?.body,
-              toShow: [...prev.data.body.toShow, ...resp?.data.body.toShow],
+        setProducts((prev) => {
+          if (!prev) return resp;
+          return {
+            ...resp,
+            data: {
+              ...resp?.data,
+              body: {
+                ...resp?.data?.body,
+                toShow: [
+                  ...(prev.data.body.toShow || []),
+                  ...(resp?.data?.body?.toShow || []),
+                ],
+              },
             },
-          },
-        }));
+          };
+        });
       }
 
       const currentPage = resp?.data?.body?.currentPage || 1;
       const totalPages = resp?.data?.body?.totalPages || 1;
 
-      localStorage.setItem("cPage", currentPage.toString());
+      if (currentPage) {
+        localStorage.setItem("cPage", currentPage.toString());
+      }
 
       setHasMore(currentPage < totalPages);
     } catch (error) {

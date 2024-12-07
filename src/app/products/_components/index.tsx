@@ -1,21 +1,23 @@
 "use client";
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useLoadMore, useProductList } from "@/hooks";
+import { useLoadMore, useList } from "@/hooks";
 import { listingPayload } from "@/app/lib/constant";
 import ProductCardSkeleton from "./product-cart-skeleton";
 import { Sorting } from "./sorting";
 import { ProductListing } from "./product-listing";
+import { TProductList } from "@/types/productList";
 
 const ProductsList = () => {
-  const { fetchProducts, sortBy, ...productListing } = useProductList();
-  const { loadMoreDecorator } = useLoadMore(fetchProducts);
+  const { fetchProducts, sortBy, ...productListing } = useList();
+  const { fetchNextProducts } = useLoadMore(fetchProducts);
 
   useEffect(() => {
-    fetchProducts({ ...listingPayload, sortBy: sortBy });
+    fetchProducts({ ...listingPayload, sortBy });
   }, [fetchProducts, sortBy]);
 
-  const data = productListing.products?.data?.body?.toShow;
+  const productListData = productListing.products?.data?.body
+    ?.toShow as TProductList["body"]["toShow"];
 
   return (
     <div className="flex justify-center m-5 flex-wrap gap-3">
@@ -23,8 +25,8 @@ const ProductsList = () => {
 
       <InfiniteScroll
         key={listingPayload.seName + listingPayload.sortBy}
-        dataLength={data?.length || 0}
-        next={loadMoreDecorator}
+        dataLength={productListData?.length || 0}
+        next={fetchNextProducts}
         hasMore={productListing.hasMore}
         loader={<ProductCardSkeleton />}
         scrollThreshold={0.8}
@@ -33,7 +35,7 @@ const ProductsList = () => {
         {productListing.loading ? (
           <ProductCardSkeleton />
         ) : (
-          data?.map((item: any, index: number) => (
+          productListData?.map((item, index: number) => (
             <ProductListing key={index} {...item} />
           ))
         )}

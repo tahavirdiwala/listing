@@ -1,4 +1,4 @@
 import { useLoadMore } from "./load-more/useLoadMore";
-import { useProductList } from "./list-config/useProductList";
+import { useList } from "./list-config/product-listing/useList";
 
-export { useLoadMore, useProductList }
+export { useLoadMore, useList }

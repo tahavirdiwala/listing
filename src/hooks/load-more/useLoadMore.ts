@@ -1,15 +1,17 @@
 "use client";
 import { listingPayload } from "@/app/lib/constant";
 
-export const useLoadMore = (callback: (obj: object) => Promise<void>) => {
-    const loadMoreDecorator = () => {
+type TLoadMoreProps = (payload: object) => Promise<void>;
+
+export const useLoadMore = (fetchProductList: TLoadMoreProps) => {
+    const fetchNextProducts = () => {
         const nextPage = +(localStorage.getItem("cPage") || 1) + 1;
-        callback({
+        fetchProductList({
             ...listingPayload,
             currentPage: nextPage,
             loadMore: true,
         });
     };
 
-    return { loadMoreDecorator }
-}
+    return { fetchNextProducts };
+};
