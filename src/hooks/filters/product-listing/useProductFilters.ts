@@ -1,3 +1,4 @@
+"use client";
 import { brandsMapper } from "@/app/lib/constant";
 import { useState } from "react";
 
@@ -6,15 +7,17 @@ export const useProductFilters = () => {
 
     const filtersUrl = Object.keys(brandsFilter)
         .filter((brand) => brandsFilter[brand])
-        .map((brand) => encodeURIComponent(brand.toLowerCase()))
-        .join("~");
+        .map((item) => encodeURIComponent(item.toLowerCase()))
+        .join("~")
 
     return {
         brands: {
-            selectedBrands: brandsFilter,
             filtersUrl,
+            selectedBrands: brandsFilter,
             facetsUrl: filtersUrl.length > 0 ? "brand" : "",
-            setSelectedBrand: setBrandsFilter
-        }
-    }
-}
+            setSelectedBrand: setBrandsFilter,
+        },
+    };
+};
+
+

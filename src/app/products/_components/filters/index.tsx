@@ -27,7 +27,7 @@ const Filters = (props: TFilterProps) => {
               <input
                 type="checkbox"
                 name={"brand"}
-                onChange={(e) => handleSelectBrand(e, item)}
+                onChange={(event) => handleSelectBrand(event, item)}
               />
               {"  "}
               {item}

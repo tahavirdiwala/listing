@@ -1,3 +1,4 @@
+"use client";
 import { listingPayload } from "@/app/lib/constant";
 
 type TLoadMoreProps = (payload: object) => Promise<void>;

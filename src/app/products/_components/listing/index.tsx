@@ -13,23 +13,23 @@ import { useProductFilters } from "@/hooks/filters/product-listing/useProductFil
 const ProductsList = () => {
   const { fetchProducts, sortBy, ...productListing } = useList();
   const { fetchNextProducts } = useLoadMore(fetchProducts);
-  const { brands: brandFilters } = useProductFilters();
+  const { brands } = useProductFilters();
 
   useEffect(() => {
     fetchProducts({
       ...listingPayload,
       sortBy,
-      filtersUrl: brandFilters.filtersUrl,
-      facetsUrl: brandFilters.facetsUrl,
+      filtersUrl: brands.filtersUrl,
+      facetsUrl: brands.facetsUrl,
     });
-  }, [fetchProducts, sortBy, brandFilters.filtersUrl, brandFilters.facetsUrl]);
+  }, [fetchProducts, sortBy, brands.filtersUrl, brands.facetsUrl]);
 
   const productListData = productListing.products?.data?.body
     ?.toShow as TProductList["body"]["toShow"];
 
   return (
     <div className="flex justify-center m-[3rem] gap-5">
-      <Filters setSelectedBrand={brandFilters.setSelectedBrand} />
+      <Filters setSelectedBrand={brands.setSelectedBrand} />
 
       <div className="flex justify-center border border-black flex-wrap gap-3">
         <Sorting setSortBy={productListing.setSortBy} />
