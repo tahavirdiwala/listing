@@ -1,3 +1,4 @@
+"use client";
 import { SortOptions } from "@/app/lib/constant";
 
 export const Sorting = (props: { setSortBy: (val: string) => void }) => {

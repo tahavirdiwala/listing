@@ -9,7 +9,7 @@ enum Sort {
 }
 
 const listingPayload = {
-  sortBy: "relevance",
+  sortBy: "",
   pageNo: 1,
   facetsUrl: "",
   filtersUrl: "",

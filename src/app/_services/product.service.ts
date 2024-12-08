@@ -1,4 +1,5 @@
 import axios from "axios";
+import { listingPayload } from "../lib/constant";
 
 class ProductService {
   getAll(payload = {}) {
@@ -8,6 +9,23 @@ class ProductService {
       live: "https://www.corporategear.com/api/fetch/products"
     }
     return axios.post(mapper.live, payload);
+  }
+
+  getAllProductsSSR() {
+    const mapper = {
+      local: "http://localhost:3000/api/fetch/products",
+      live: "https://www.corporategear.com/api/fetch/products"
+    }
+    return fetch(mapper.live,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(listingPayload),
+      }
+    );
   }
 
   categories(

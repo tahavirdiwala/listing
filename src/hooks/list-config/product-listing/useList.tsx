@@ -1,16 +1,13 @@
 "use client";
 import productService from "@/app/_services/product.service";
 import { type TProductList } from "@/types/productList";
-import { AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 
-export const useList = () => {
+export const useList = (props: { initialData: TProductList }) => {
   const [sortBy, setSortBy] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [products, setProducts] = useState<AxiosResponse<TProductList> | null>(
-    null
-  );
+  const [products, setProducts] = useState({ data: props?.initialData });
 
   const fetchProducts = useCallback(async ({ loadMore = false, ...mapper }) => {
     if (!loadMore) setLoading(true);

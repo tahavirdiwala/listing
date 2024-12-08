@@ -9,8 +9,8 @@ import { type TProductList } from "@/types/productList";
 import { ProductListing } from "./product-listing";
 import Filters from "../filters";
 
-const ProductsList = () => {
-  const { fetchProducts, sortBy, ...productListing } = useList();
+const ProductsList = ({ initialData }: { initialData: TProductList }) => {
+  const { fetchProducts, sortBy, ...productListing } = useList({ initialData });
   const { brands } = useProductFilters();
   const { fetchNextProducts } = useLoadMore({
     fetchProducts,
@@ -20,12 +20,14 @@ const ProductsList = () => {
   });
 
   useEffect(() => {
-    fetchProducts({
-      ...listingPayload,
-      sortBy,
-      filtersUrl: brands.filtersUrl,
-      facetsUrl: brands.facetsUrl,
-    });
+    if (sortBy.length > 0 || brands.filtersUrl.length > 0) {
+      fetchProducts({
+        ...listingPayload,
+        sortBy,
+        filtersUrl: brands.filtersUrl,
+        facetsUrl: brands.facetsUrl,
+      });
+    }
   }, [fetchProducts, sortBy, brands.filtersUrl, brands.facetsUrl]);
 
   const productListData = productListing.products?.data?.body
