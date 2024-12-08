@@ -30,9 +30,18 @@ const Filters = (props: TFilterProps) => {
     }));
   };
 
+  const handleResetFilters = () => {
+    props.setSelectedBrand({});
+  };
+
   return (
     <div className="w-[300px] border border-green">
-      <h2 className="p-2">Brand</h2>
+      <div className="flex justify-between">
+        <h2 className="p-2">Brand</h2>
+        <button className="p-2" onClick={handleResetFilters}>
+          Reset
+        </button>
+      </div>
       <div className="flex flex-col p-2">
         {brandsArray.map((item, index) => {
           return (
