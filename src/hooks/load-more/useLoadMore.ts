@@ -1,13 +1,19 @@
 "use client";
 import { listingPayload } from "@/app/lib/constant";
 
-type TLoadMoreProps = (payload: object) => Promise<void>;
+type TLoadMoreProps = {
+    fetchProducts: (payload: object) => Promise<void>;
+    sortBy: string;
+    filtersUrl: string;
+    facetsUrl: string
+};
 
-export const useLoadMore = (fetchProductList: TLoadMoreProps) => {
+export const useLoadMore = ({ fetchProducts, ...rest }: TLoadMoreProps) => {
     const fetchNextProducts = () => {
         const nextPage = +(localStorage.getItem("cPage") || 1) + 1;
-        fetchProductList({
+        fetchProducts({
             ...listingPayload,
+            ...rest,
             currentPage: nextPage,
             loadMore: true,
         });

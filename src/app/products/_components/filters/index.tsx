@@ -11,7 +11,7 @@ const Filters = (props: TFilterProps) => {
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) => {
-    props.setSelectedBrand((prev: object) => ({
+    props.setSelectedBrand((prev) => ({
       ...prev,
       [key]: e.target.checked,
     }));

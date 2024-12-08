@@ -12,8 +12,13 @@ import { useProductFilters } from "@/hooks/filters/product-listing/useProductFil
 
 const ProductsList = () => {
   const { fetchProducts, sortBy, ...productListing } = useList();
-  const { fetchNextProducts } = useLoadMore(fetchProducts);
   const { brands } = useProductFilters();
+  const { fetchNextProducts } = useLoadMore({
+    fetchProducts,
+    sortBy,
+    filtersUrl: brands.filtersUrl,
+    facetsUrl: brands.facetsUrl,
+  });
 
   useEffect(() => {
     fetchProducts({
