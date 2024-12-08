@@ -1,12 +1,25 @@
+"use client";
 import { brandsArray } from "@/app/lib/constant";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
 type TFilterProps = {
+  selectedBrands: Record<string, boolean>;
   setSelectedBrand: React.Dispatch<
     React.SetStateAction<Record<string, boolean>>
   >;
 };
 
 const Filters = (props: TFilterProps) => {
+  const params = useSearchParams();
+
+  const selectedBrandsParams = useMemo(() => {
+    return (params.get("brand") || "").split("~").reduce((acc, curr) => {
+      acc[curr] = true;
+      return acc;
+    }, {} as typeof props.selectedBrands);
+  }, [params, props]);
+
   const handleSelectBrand = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
@@ -26,6 +39,7 @@ const Filters = (props: TFilterProps) => {
             <label key={index}>
               <input
                 type="checkbox"
+                checked={Boolean(selectedBrandsParams[item])}
                 name={"brand"}
                 onChange={(event) => handleSelectBrand(event, item)}
               />

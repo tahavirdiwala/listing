@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useLoadMore, useList } from "@/hooks";
+import { useLoadMore, useList, useProductFilters } from "@/hooks";
 import { listingPayload } from "@/app/lib/constant";
 import ProductCardSkeleton from "./product-cart-skeleton";
 import { Sorting } from "../sorting/sorting";
 import { TProductList } from "@/types/productList";
 import { ProductListing } from "./product-listing";
 import Filters from "../filters";
-import { useProductFilters } from "@/hooks/filters/product-listing/useProductFilters";
 
 const ProductsList = () => {
   const { fetchProducts, sortBy, ...productListing } = useList();
@@ -34,7 +33,10 @@ const ProductsList = () => {
 
   return (
     <div className="flex justify-center m-[3rem] gap-5">
-      <Filters setSelectedBrand={brands.setSelectedBrand} />
+      <Filters
+        selectedBrands={brands.selectedBrands}
+        setSelectedBrand={brands.setSelectedBrand}
+      />
 
       <div className="flex justify-center border border-black flex-wrap gap-3">
         <Sorting setSortBy={productListing.setSortBy} />
