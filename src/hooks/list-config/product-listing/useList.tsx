@@ -12,29 +12,29 @@ export const useList = () => {
     null
   );
 
-  const fetchProducts = useCallback(async ({ loadMore = false, ...obj }) => {
+  const fetchProducts = useCallback(async ({ loadMore = false, ...mapper }) => {
     if (!loadMore) setLoading(true);
 
     try {
-      const resp = await productService.getAll({
-        ...obj,
-        pageNo: obj.currentPage || 1,
+      const response = await productService.getAll({
+        ...mapper,
+        pageNo: mapper.currentPage || 1,
       });
 
       if (!loadMore) {
-        setProducts(resp);
+        setProducts(response);
       } else {
         setProducts((prev) => {
-          if (!prev) return resp;
+          if (!prev) return response;
           return {
-            ...resp,
+            ...response,
             data: {
-              ...resp?.data,
+              ...response?.data,
               body: {
-                ...resp?.data?.body,
+                ...response?.data?.body,
                 toShow: [
                   ...(prev.data.body.toShow || []),
-                  ...(resp?.data?.body?.toShow || []),
+                  ...(response?.data?.body?.toShow || []),
                 ],
               },
             },
@@ -42,8 +42,8 @@ export const useList = () => {
         });
       }
 
-      const currentPage = resp?.data?.body?.currentPage || 1;
-      const totalPages = resp?.data?.body?.totalPages || 1;
+      const currentPage = response?.data?.body?.currentPage || 1;
+      const totalPages = response?.data?.body?.totalPages || 1;
 
       if (currentPage) {
         localStorage.setItem("cPage", currentPage.toString());
