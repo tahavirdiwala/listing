@@ -1,6 +1,6 @@
 "use client";
 import productService from "@/app/_services/product.service";
-import { TProductList } from "@/types/productList";
+import { type TProductList } from "@/types/productList";
 import { AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 

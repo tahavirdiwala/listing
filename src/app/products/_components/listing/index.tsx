@@ -5,7 +5,7 @@ import { useLoadMore, useList, useProductFilters } from "@/hooks";
 import { listingPayload } from "@/app/lib/constant";
 import ProductCardSkeleton from "./product-cart-skeleton";
 import { Sorting } from "../sorting/sorting";
-import { TProductList } from "@/types/productList";
+import { type TProductList } from "@/types/productList";
 import { ProductListing } from "./product-listing";
 import Filters from "../filters";
 
