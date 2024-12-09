@@ -14,8 +14,13 @@ import { ProductListing } from "./product-listing";
 import Filters from "../filters";
 
 const ProductsList = ({ initialData }: { initialData: TProductList }) => {
-  const { fetchProducts, sortBy, ...productListing } = useList({ initialData });
   const { brands } = useProductFilters();
+  const { fetchProducts, sortBy, commonProductList, ...productListing } =
+    useList({
+      initialData,
+      filtersUrl: brands.filtersUrl,
+      facetsUrl: brands.facetsUrl,
+    });
   const { fetchNextProducts } = useLoadMore({
     fetchProducts,
     sortBy,
@@ -24,15 +29,17 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
   });
 
   useEffect(() => {
-    if (sortBy.length > 0 || brands.filtersUrl.length > 0) {
-      fetchProducts({
-        ...listingPayload,
-        sortBy,
-        filtersUrl: brands.filtersUrl,
-        facetsUrl: brands.facetsUrl,
-      });
+    if (Object.keys(brands.selectedBrands).length === 0) {
+      commonProductList();
+    } else if (sortBy.length > 0 || brands.filtersUrl.length > 0) {
+      commonProductList();
     }
-  }, [fetchProducts, sortBy, brands.filtersUrl, brands.facetsUrl]);
+  }, [
+    brands.filtersUrl.length,
+    brands.selectedBrands,
+    commonProductList,
+    sortBy.length,
+  ]);
 
   const productListData = productListing.products?.data?.body
     ?.toShow as TProductList["body"]["toShow"];
@@ -42,6 +49,7 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
       <Filters
         selectedBrands={brands.selectedBrands}
         setSelectedBrand={brands.setSelectedBrand}
+        handleResetFilters={brands.handleResetFilters}
       />
 
       <div className="flex justify-center border border-black w-[1500px] flex-wrap gap-3">

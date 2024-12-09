@@ -1,9 +1,16 @@
 "use client";
 import productService from "@/app/_services/product.service";
+import { listingPayload } from "@/app/lib/constant";
 import { type TProductList } from "@/types/productList";
 import { useCallback, useState } from "react";
 
-export const useList = (props: { initialData: TProductList }) => {
+type TProductListProps = {
+  initialData: TProductList;
+  filtersUrl: string;
+  facetsUrl: string;
+};
+
+export const useList = (props: TProductListProps) => {
   const [sortBy, setSortBy] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -54,5 +61,22 @@ export const useList = (props: { initialData: TProductList }) => {
     }
   }, []);
 
-  return { products, sortBy, loading, hasMore, setSortBy, fetchProducts };
+  const commonProductList = useCallback(() => {
+    fetchProducts({
+      ...listingPayload,
+      sortBy,
+      filtersUrl: props.filtersUrl,
+      facetsUrl: props.facetsUrl,
+    });
+  }, [fetchProducts, props.facetsUrl, props.filtersUrl, sortBy]);
+
+  return {
+    products,
+    sortBy,
+    loading,
+    hasMore,
+    setSortBy,
+    fetchProducts,
+    commonProductList,
+  };
 };

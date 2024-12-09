@@ -8,6 +8,7 @@ type TFilterProps = {
   setSelectedBrand: React.Dispatch<
     React.SetStateAction<Record<string, boolean>>
   >;
+  handleResetFilters: () => void;
 };
 
 const Filters = (props: TFilterProps) => {
@@ -34,18 +35,17 @@ const Filters = (props: TFilterProps) => {
     }));
   };
 
-  /**
-   * decorator for resetting filters
-   */
-  const handleResetFilters = () => {
-    props.setSelectedBrand({});
-  };
+  const hasFilter = Object.keys(props.selectedBrands).length === 0;
 
   return (
     <div className="w-[300px] border border-green">
       <div className="flex justify-between">
         <h2 className="p-2">Brand</h2>
-        <button className="p-2" onClick={handleResetFilters}>
+        <button
+          className={`p-2 ${hasFilter ? "cursor-not-allowed" : ""}`}
+          onClick={props.handleResetFilters}
+          disabled={hasFilter}
+        >
           Reset
         </button>
       </div>
