@@ -19,14 +19,14 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
   } = useProductFilters();
   const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
     initialData,
-    filtersUrl: filtersUrl,
-    facetsUrl: facetsUrl,
+    filtersUrl,
+    facetsUrl,
   });
   const { fetchNextProducts } = useLoadMore({
     fetchProducts,
     sortBy,
-    filtersUrl: filtersUrl,
-    facetsUrl: facetsUrl,
+    filtersUrl,
+    facetsUrl,
   });
 
   useEffect(() => {
