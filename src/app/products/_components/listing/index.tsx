@@ -12,7 +12,7 @@ import { Sorting } from "../sorting/sorting";
 import { type TProductList } from "@/types/product-list";
 import Filters from "../filters";
 import { ProductListingCard } from "./product-listing-card";
-import { FiltersConfig } from "@/app/_context";
+import { FiltersConfig } from "@/context";
 
 const ProductsList = ({ initialData }: { initialData: TProductList }) => {
   const {

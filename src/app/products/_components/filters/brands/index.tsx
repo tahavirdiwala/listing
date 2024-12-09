@@ -1,6 +1,6 @@
 "use client";
 import { CheckBox } from "@/app/_components/shared/checkbox";
-import { FiltersConfig } from "@/app/_context";
+import { FiltersConfig } from "@/context";
 import { brandsArray } from "@/app/lib/constant";
 import { useSearchParams } from "next/navigation";
 import { useContext, useMemo } from "react";
