@@ -30,8 +30,10 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
 
   useEffect(() => {
     if (Object.keys(brands.selectedBrands).length === 0) {
+      // for resetting all brands to initial state
       commonProductList();
     } else if (sortBy.length > 0 || brands.filtersUrl.length > 0) {
+      // for sorting & filters
       commonProductList();
     }
   }, [
