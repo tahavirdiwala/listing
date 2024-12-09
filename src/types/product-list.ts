@@ -9,4 +9,13 @@ type TProductList = {
   };
 };
 
-export { type TProductList };
+type TFilterProps = {
+  loading: boolean;
+  selectedBrands: Record<string, boolean>;
+  setSelectedBrand: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
+  handleResetFilters: () => void;
+};
+
+export { type TProductList, type TFilterProps };
