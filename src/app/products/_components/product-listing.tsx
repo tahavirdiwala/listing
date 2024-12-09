@@ -1,7 +1,12 @@
 "use client";
 import Image from "next/image";
 
-export const ProductListing = (props: { brandName: string; name: string }) => {
+type TProductListingProps = {
+  brandName: string;
+  name: string;
+};
+
+export const ProductListing = (props: TProductListingProps) => {
   return (
     <div className=" max-w-sm rounded overflow-hidden shadow-lg">
       <Image

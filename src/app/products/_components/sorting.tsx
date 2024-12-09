@@ -1,8 +1,12 @@
 import { SortOptions } from "@/app/lib/constant";
 
-export const Sorting = (props: { setSortBy: (val: string) => void }) => {
-  const handleListSorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    props.setSortBy(e.target.value);
+type TSortingProps = {
+  setSortBy: (value: string) => void;
+};
+
+export const Sorting = (props: TSortingProps) => {
+  const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    props.setSortBy(event.target.value);
   };
 
   return (
