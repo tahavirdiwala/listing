@@ -1,13 +1,13 @@
 "use client";
 import { CheckBox } from "@/app/_components/shared/checkbox";
-import { FiltersConfig } from "@/context";
+import { FiltersConfigContext } from "@/context";
 import { brandsArray } from "@/app/lib/constant";
 import { useSearchParams } from "next/navigation";
 import { useContext, useMemo } from "react";
 
 export const BrandFilters = () => {
   const params = useSearchParams();
-  const context = useContext(FiltersConfig);
+  const context = useContext(FiltersConfigContext);
 
   const selectedBrandsParams = useMemo(() => {
     if (params.get("brand") == null) return {};

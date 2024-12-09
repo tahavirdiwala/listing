@@ -12,7 +12,7 @@ import { Sorting } from "../sorting/sorting";
 import { type TProductList } from "@/types/product-list";
 import Filters from "../filters";
 import { ProductListingCard } from "./product-listing-card";
-import { FiltersConfig } from "@/context";
+import { FiltersConfigContext } from "@/context";
 
 const ProductsList = ({ initialData }: { initialData: TProductList }) => {
   const {
@@ -50,9 +50,11 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
 
   return (
     <div className="flex justify-center m-[3rem] gap-5">
-      <FiltersConfig.Provider value={{ ...brands, loading: listing.loading }}>
+      <FiltersConfigContext.Provider
+        value={{ ...brands, loading: listing.loading }}
+      >
         <Filters />
-      </FiltersConfig.Provider>
+      </FiltersConfigContext.Provider>
 
       <div className="flex justify-center border border-green w-[1500px] flex-wrap gap-3">
         <Sorting setSortBy={listing.setSortBy} />
