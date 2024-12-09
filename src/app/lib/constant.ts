@@ -9,7 +9,7 @@ enum Sort {
 }
 
 const listingPayload = {
-  sortBy: "relevance",
+  sortBy: "",
   pageNo: 1,
   facetsUrl: "",
   filtersUrl: "",
@@ -59,4 +59,41 @@ const SortOptions: { name: string; type: Sort }[] = [
   },
 ];
 
-export { Sort, listingPayload, SortOptions, filterPayload };
+const brandsArray = [
+  "Adidas",
+  "Alternative",
+  "Arctic Zone",
+  "B. Draddy",
+  "Bella + Canvas",
+  "Berne Apparel",
+  "Bose",
+  "BruMate",
+  "Callaway Golf",
+  "Camelbak",
+  "Carhartt",
+  "Charles River Apparel",
+  "Columbia",
+  "Core 365",
+  "Corkcicle",
+  "Courant",
+  "Dudley Stephens",
+  "Eddie Bauer",
+  "Ember",
+  "Faherty Brand",
+  "Fairway & Greene",
+  "Galvin Green",
+  "Miir",
+  "Moleskine",
+  "New Era",
+  "Next Level",
+  "Nike",
+  "YETI",
+  "Yupoong",
+];
+
+const brandsMapper = brandsArray.reduce(
+  (acc, curr) => ({ ...acc, [curr]: false }),
+  {} as Record<string, boolean>
+);
+
+export { Sort, listingPayload, SortOptions, filterPayload, brandsArray, brandsMapper };
