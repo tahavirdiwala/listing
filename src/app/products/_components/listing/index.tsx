@@ -14,29 +14,31 @@ import Filters from "../filters";
 import { ProductListingCard } from "./product-listing-card";
 
 const ProductsList = ({ initialData }: { initialData: TProductList }) => {
-  const { brands } = useProductFilters();
+  const {
+    brands: { facetsUrl, filtersUrl, ...brands },
+  } = useProductFilters();
   const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
     initialData,
-    filtersUrl: brands.filtersUrl,
-    facetsUrl: brands.facetsUrl,
+    filtersUrl: filtersUrl,
+    facetsUrl: facetsUrl,
   });
   const { fetchNextProducts } = useLoadMore({
     fetchProducts,
     sortBy,
-    filtersUrl: brands.filtersUrl,
-    facetsUrl: brands.facetsUrl,
+    filtersUrl: filtersUrl,
+    facetsUrl: facetsUrl,
   });
 
   useEffect(() => {
     if (Object.keys(brands.selectedBrands).length === 0) {
       // for resetting all brands to initial state
       commonProductList();
-    } else if (sortBy.length > 0 || brands.filtersUrl.length > 0) {
+    } else if (sortBy.length > 0 || filtersUrl.length > 0) {
       // for sorting & filters
       commonProductList();
     }
   }, [
-    brands.filtersUrl.length,
+    filtersUrl.length,
     brands.selectedBrands,
     commonProductList,
     sortBy.length,
@@ -47,12 +49,7 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
 
   return (
     <div className="flex justify-center m-[3rem] gap-5">
-      <Filters
-        loading={listing.loading}
-        selectedBrands={brands.selectedBrands}
-        setSelectedBrand={brands.setSelectedBrand}
-        handleResetFilters={brands.handleResetFilters}
-      />
+      <Filters loading={listing.loading} {...brands} />
 
       <div className="flex justify-center border border-green w-[1500px] flex-wrap gap-3">
         <Sorting setSortBy={listing.setSortBy} />
@@ -69,7 +66,7 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
           {listing.loading ? (
             <ProductCardSkeleton />
           ) : (
-            productListData?.map((item, index: number) => (
+            productListData?.map((item, index) => (
               <ProductListingCard key={index} {...item} />
             ))
           )}
