@@ -1,4 +1,5 @@
 "use client";
+import { CheckBox } from "@/app/_components/shared/checkbox";
 import { brandsArray } from "@/app/lib/constant";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
@@ -57,16 +58,14 @@ const Filters = (props: TFilterProps) => {
       <div className="flex flex-col p-2">
         {brandsArray.map((item, index) => {
           return (
-            <label key={index}>
-              <input
-                type="checkbox"
-                checked={Boolean(selectedBrandsParams[item])}
-                name={"brand"}
-                onChange={(event) => handleSelectBrand(event, item)}
-              />
-              {"  "}
+            <CheckBox
+              key={index}
+              name="brand"
+              checked={Boolean(selectedBrandsParams[item])}
+              onChange={(event) => handleSelectBrand(event, item)}
+            >
               {item}
-            </label>
+            </CheckBox>
           );
         })}
       </div>
