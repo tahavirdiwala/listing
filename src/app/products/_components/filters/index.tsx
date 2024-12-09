@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 "use client";
 import { brandsArray } from "@/app/lib/constant";
 import { useSearchParams } from "next/navigation";
@@ -33,6 +34,9 @@ const Filters = (props: TFilterProps) => {
   const handleResetFilters = () => {
     props.setSelectedBrand({});
   };
+=======
+import { BrandFilters } from "./brands";
+>>>>>>> Stashed changes
 
   return (
     <div className="w-[300px] border border-green">

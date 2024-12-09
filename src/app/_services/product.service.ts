@@ -14,6 +14,7 @@ class ProductService {
   getAllProductsSSR() {
     const mapper = {
       local: "http://localhost:3000/api/fetch/products",
+<<<<<<< Updated upstream
       live: "https://www.corporategear.com/api/fetch/products"
     }
     return fetch(mapper.live,
@@ -26,6 +27,20 @@ class ProductService {
         body: JSON.stringify(listingPayload),
       }
     );
+=======
+      live: "https://www.corporategear.com/api/fetch/products",
+    };
+
+    return fetch(mapper.live, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listingPayload),
+      next: { revalidate: 60 * 100 }
+    });
+>>>>>>> Stashed changes
   }
 
   categories(
