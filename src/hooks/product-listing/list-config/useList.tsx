@@ -1,7 +1,7 @@
 "use client";
 import productService from "@/app/_services/product.service";
 import { listingPayload } from "@/app/lib/constant";
-import { type TProductList } from "@/types/productList";
+import { type TProductList } from "@/types/product-list";
 import { useCallback, useState } from "react";
 
 type TProductListProps = {

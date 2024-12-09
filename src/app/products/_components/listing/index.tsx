@@ -9,7 +9,7 @@ import {
 import { listingPayload } from "@/app/lib/constant";
 import ProductCardSkeleton from "./product-cart-skeleton";
 import { Sorting } from "../sorting/sorting";
-import { type TProductList } from "@/types/productList";
+import { type TProductList } from "@/types/product-list";
 import Filters from "../filters";
 import { ProductListingCard } from "./product-listing-card";
 
