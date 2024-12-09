@@ -61,7 +61,7 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
 
         <InfiniteScroll
           key={listingPayload.seName + listingPayload.sortBy}
-          dataLength={productListData?.length || 0}
+          dataLength={productListData?.length}
           next={fetchNextProducts}
           hasMore={listing.hasMore}
           loader={<ProductCardSkeleton />}

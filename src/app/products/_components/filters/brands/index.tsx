@@ -1,9 +1,10 @@
 "use client";
-import { CheckBox } from "@/app/_components/shared/checkbox";
+import { CheckBox } from "@/components/shared/checkbox";
 import { FiltersConfigContext } from "@/context";
 import { brandsArray } from "@/app/lib/constant";
 import { useSearchParams } from "next/navigation";
 import { useContext, useMemo } from "react";
+import { Button } from "@/components/shared/button";
 
 export const BrandFilters = () => {
   const params = useSearchParams();
@@ -38,15 +39,14 @@ export const BrandFilters = () => {
     <>
       <div className="flex justify-between">
         <h2 className="p-2">Brand</h2>
-        <button
+        <Button
+          name="Reset Brands"
           className={`bg-white border border-green p-2 ${
             hasFilters ? "cursor-not-allowed" : ""
           }`}
           onClick={context.handleResetFilters}
           disabled={Boolean(hasFilters)}
-        >
-          Reset Brands
-        </button>
+        />
       </div>
       <div className="flex flex-col p-2">
         {brandsArray.map((item, index) => {
