@@ -2,21 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["png.pngtree.com"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "png.pngtree.com",
+        hostname: "storagemedia.corporategear.com",
       },
       {
         protocol: "https",
-        hostname: "png.pngtree.com",
+        hostname: "corporategear.com",
       },
     ],
   },
   experimental: {
-    reactCompiler: true
-  }
+    reactCompiler: true,
+  },
 };
 
 export default nextConfig;

@@ -1,17 +1,25 @@
 "use client";
 import { SortOptions } from "@/app/lib/constant";
 
-export const Sorting = (props: { setSortBy: (val: string) => void }) => {
-  const handleListSorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    props.setSortBy(e.target.value);
+type TSortingProps = {
+  setSortBy: (value: string) => void;
+};
+
+export const Sorting = (props: TSortingProps) => {
+  const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    props.setSortBy(event.target.value);
   };
 
   return (
-    <div className=" w-full md:w-2/3">
-      <div className="bg-slate-400 flex justify-center md:justify-end max-w-7xl mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
+    <div className=" w-full">
+      <div className="bg-[#f5f5f6] flex md:justify-end mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
         <div className="flex items-center">
-          <div className="relative inline-block text-left">
-            <select onChange={handleListSorting}>
+          <div className="flex gap-3 relative inline-block text-left">
+            <p>Sort</p>
+            <select
+              className="bg-black text-white"
+              onChange={handleListSorting}
+            >
               {SortOptions.map((item) => {
                 return <option key={item.type}>{item.type}</option>;
               })}
