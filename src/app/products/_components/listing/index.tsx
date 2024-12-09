@@ -15,12 +15,11 @@ import { ProductListingCard } from "./product-listing-card";
 
 const ProductsList = ({ initialData }: { initialData: TProductList }) => {
   const { brands } = useProductFilters();
-  const { fetchProducts, sortBy, commonProductList, ...productListing } =
-    useList({
-      initialData,
-      filtersUrl: brands.filtersUrl,
-      facetsUrl: brands.facetsUrl,
-    });
+  const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
+    initialData,
+    filtersUrl: brands.filtersUrl,
+    facetsUrl: brands.facetsUrl,
+  });
   const { fetchNextProducts } = useLoadMore({
     fetchProducts,
     sortBy,
@@ -43,30 +42,31 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
     sortBy.length,
   ]);
 
-  const productListData = productListing.products?.data?.body
+  const productListData = listing.products?.data?.body
     ?.toShow as TProductList["body"]["toShow"];
 
   return (
     <div className="flex justify-center m-[3rem] gap-5">
       <Filters
+        loading={listing.loading}
         selectedBrands={brands.selectedBrands}
         setSelectedBrand={brands.setSelectedBrand}
         handleResetFilters={brands.handleResetFilters}
       />
 
       <div className="flex justify-center border border-green w-[1500px] flex-wrap gap-3">
-        <Sorting setSortBy={productListing.setSortBy} />
+        <Sorting setSortBy={listing.setSortBy} />
 
         <InfiniteScroll
           key={listingPayload.seName + listingPayload.sortBy}
           dataLength={productListData?.length || 0}
           next={fetchNextProducts}
-          hasMore={productListing.hasMore}
+          hasMore={listing.hasMore}
           loader={<ProductCardSkeleton />}
           scrollThreshold={0.8}
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mb-[32px]"
         >
-          {productListing.loading ? (
+          {listing.loading ? (
             <ProductCardSkeleton />
           ) : (
             productListData?.map((item, index: number) => (

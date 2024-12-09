@@ -12,10 +12,13 @@ export const Sorting = (props: TSortingProps) => {
 
   return (
     <div className=" w-full">
-      <div className="bg-slate-600 flex md:justify-end mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
+      <div className="bg-[#f5f5f6] flex md:justify-end mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
         <div className="flex items-center">
           <div className="relative inline-block text-left">
-            <select onChange={handleListSorting}>
+            <select
+              className="bg-black text-white"
+              onChange={handleListSorting}
+            >
               {SortOptions.map((item) => {
                 return <option key={item.type}>{item.type}</option>;
               })}

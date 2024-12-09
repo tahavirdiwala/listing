@@ -1,6 +1,6 @@
 "use client";
 import { brandsMapper } from "@/app/lib/constant";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const useProductFilters = () => {
@@ -29,9 +29,9 @@ export const useProductFilters = () => {
     (brand) => brandsFilter[brand]
   );
 
-  const handleResetFilters = useCallback(() => {
+  const handleResetFilters = () => {
     setBrandsFilter({});
-  }, []);
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());

@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
 type TFilterProps = {
+  loading: boolean;
   selectedBrands: Record<string, boolean>;
   setSelectedBrand: React.Dispatch<
     React.SetStateAction<Record<string, boolean>>
@@ -36,14 +37,15 @@ const Filters = (props: TFilterProps) => {
     }));
   };
 
-  const hasFilters = Object.keys(selectedBrandsParams).length === 0;
+  const hasFilters =
+    Object.keys(selectedBrandsParams).length === 0 || props.loading;
 
   return (
-    <div className="w-[300px] border border-green">
+    <div className="w-[300px] h-[1400px] bg-[#f5f5f6] border border-green">
       <div className="flex justify-between">
         <h2 className="p-2">Brand</h2>
         <button
-          className={`border border-green p-2 ${
+          className={`bg-white border border-green p-2 ${
             hasFilters ? "cursor-not-allowed" : ""
           }`}
           onClick={props.handleResetFilters}
