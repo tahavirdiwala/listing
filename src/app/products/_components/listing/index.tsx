@@ -10,8 +10,8 @@ import { listingPayload } from "@/app/lib/constant";
 import ProductCardSkeleton from "./product-cart-skeleton";
 import { Sorting } from "../sorting/sorting";
 import { type TProductList } from "@/types/productList";
-import { ProductListing } from "./product-listing";
 import Filters from "../filters";
+import { ProductListingCard } from "./product-listing-card";
 
 const ProductsList = ({ initialData }: { initialData: TProductList }) => {
   const { brands } = useProductFilters();
@@ -70,7 +70,7 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
             <ProductCardSkeleton />
           ) : (
             productListData?.map((item, index: number) => (
-              <ProductListing key={index} {...item} />
+              <ProductListingCard key={index} {...item} />
             ))
           )}
         </InfiniteScroll>

@@ -6,7 +6,7 @@ type TProductListingProps = {
   name: string;
 };
 
-export const ProductListing = (props: TProductListingProps) => {
+export const ProductListingCard = (props: TProductListingProps) => {
   return (
     <div className=" max-w-sm rounded overflow-hidden shadow-lg">
       <Image
