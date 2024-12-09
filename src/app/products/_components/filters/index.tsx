@@ -21,7 +21,7 @@ const Filters = (props: TFilterProps) => {
   }, [params, props]);
 
   /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event checked even for checkbox
+   * @param {React.ChangeEvent<HTMLInputElement>} event checked event for checkbox
    * @param {string} key specifying key for selectedBrand
    */
   const handleSelectBrand = (
