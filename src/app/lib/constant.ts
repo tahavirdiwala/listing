@@ -96,4 +96,11 @@ const brandsMapper = brandsArray.reduce(
   {} as Record<string, boolean>
 );
 
-export { Sort, listingPayload, SortOptions, filterPayload, brandsArray, brandsMapper };
+export {
+  Sort,
+  listingPayload,
+  SortOptions,
+  filterPayload,
+  brandsArray,
+  brandsMapper,
+};
