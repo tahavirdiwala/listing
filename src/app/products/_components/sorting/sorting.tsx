@@ -11,8 +11,8 @@ export const Sorting = (props: TSortingProps) => {
   };
 
   return (
-    <div className=" w-full md:w-2/3">
-      <div className="bg-slate-400 flex justify-center md:justify-end max-w-7xl mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
+    <div className=" w-full">
+      <div className="bg-slate-600 flex md:justify-end mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
         <div className="flex items-center">
           <div className="relative inline-block text-left">
             <select onChange={handleListSorting}>

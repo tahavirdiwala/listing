@@ -15,6 +15,7 @@ const Filters = (props: TFilterProps) => {
   const params = useSearchParams();
 
   const selectedBrandsParams = useMemo(() => {
+    if (params.get("brand") == null) return {};
     return (params.get("brand") || "").split("~").reduce((acc, curr) => {
       acc[curr] = true;
       return acc;
@@ -35,18 +36,20 @@ const Filters = (props: TFilterProps) => {
     }));
   };
 
-  const hasFilter = Object.keys(props.selectedBrands).length === 0;
+  const hasFilters = Object.keys(selectedBrandsParams).length === 0;
 
   return (
     <div className="w-[300px] border border-green">
       <div className="flex justify-between">
         <h2 className="p-2">Brand</h2>
         <button
-          className={`p-2 ${hasFilter ? "cursor-not-allowed" : ""}`}
+          className={`border border-green p-2 ${
+            hasFilters ? "cursor-not-allowed" : ""
+          }`}
           onClick={props.handleResetFilters}
-          disabled={hasFilter}
+          disabled={hasFilters}
         >
-          Reset
+          Reset Brands
         </button>
       </div>
       <div className="flex flex-col p-2">

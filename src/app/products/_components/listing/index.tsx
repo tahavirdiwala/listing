@@ -52,7 +52,7 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
         handleResetFilters={brands.handleResetFilters}
       />
 
-      <div className="flex justify-center border border-black w-[1500px] flex-wrap gap-3">
+      <div className="flex justify-center border border-green w-[1500px] flex-wrap gap-3">
         <Sorting setSortBy={productListing.setSortBy} />
 
         <InfiniteScroll
