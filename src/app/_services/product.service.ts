@@ -3,29 +3,26 @@ import { listingPayload } from "../lib/constant";
 
 class ProductService {
   getAll(payload = {}) {
-    //https://www.corporategear.com/api/fetch/products
     const mapper = {
       local: "http://localhost:3000/api/fetch/products",
-      live: "https://www.corporategear.com/api/fetch/products"
-    }
+      live: "https://www.corporategear.com/api/fetch/products",
+    };
     return axios.post(mapper.live, payload);
   }
 
   getAllProductsSSR() {
     const mapper = {
       local: "http://localhost:3000/api/fetch/products",
-      live: "https://www.corporategear.com/api/fetch/products"
-    }
-    return fetch(mapper.live,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(listingPayload),
-      }
-    );
+      live: "https://www.corporategear.com/api/fetch/products",
+    };
+    return fetch(mapper.live, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listingPayload),
+    });
   }
 
   categories(
@@ -38,15 +35,12 @@ class ProductService {
       filterOptionforfaceteds: [],
     }
   ) {
-    // https://www.corporategear.com/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json
     const mapper = {
-      local: "http://localhost:3000/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json",
-      live: "https://www.corporategear.com/api/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json"
-    }
-    return axios.post(
-      mapper.live,
-      payload
-    );
+      local:
+        "http://localhost:3000/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json",
+      live: "https://www.corporategear.com/api/StoreProductFilter/GetFilterByCategoryByCatcheWithJson.json",
+    };
+    return axios.post(mapper.live, payload);
   }
 }
 
