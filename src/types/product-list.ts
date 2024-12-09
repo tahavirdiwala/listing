@@ -3,6 +3,9 @@ type TProductList = {
     toShow: Array<{
       name: string;
       brandName: string;
+      getProductImageOptionList: {
+        imageName: string;
+      }[];
     }>;
     currentPage: number;
     totalPages: number;

@@ -1,19 +1,25 @@
 "use client";
+import { defaultImagePath } from "@/app/lib/constant";
 import Image from "next/image";
 
-type TProductListingProps = {
+export type TProductListingProps = {
   brandName: string;
   name: string;
+  getProductImageOptionList: {
+    imageName: string;
+  }[];
 };
 
 const commonSpanStyle = `inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2`;
 
 export const ProductListingCard = (props: TProductListingProps) => {
+  const path = `${defaultImagePath}${props?.getProductImageOptionList[0]?.imageName}`;
+
   return (
     <div className=" max-w-sm rounded overflow-hidden shadow-lg">
       <Image
         className="w-full"
-        src={`https://png.pngtree.com/png-vector/20240628/ourmid/pngtree-ultra-realistic-unreal-engine-empty-white-t-shirt-mockup-png-image_12731053.png`}
+        src={path}
         width={100}
         height={100}
         alt="Sunset in the mountains"
