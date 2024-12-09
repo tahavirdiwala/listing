@@ -20,16 +20,23 @@ const Filters = (props: TFilterProps) => {
     }, {} as typeof props.selectedBrands);
   }, [params, props]);
 
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event checked even for checkbox
+   * @param {string} key specifying key for selectedBrand
+   */
   const handleSelectBrand = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) => {
     props.setSelectedBrand((prev) => ({
       ...prev,
-      [key]: e.target.checked,
+      [key]: event.target.checked,
     }));
   };
 
+  /**
+   * decorator for resetting filters
+   */
   const handleResetFilters = () => {
     props.setSelectedBrand({});
   };

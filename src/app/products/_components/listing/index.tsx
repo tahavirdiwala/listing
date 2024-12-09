@@ -1,7 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useLoadMore, useList, useProductFilters } from "@/hooks";
+import {
+  useLoadMore,
+  useList,
+  useProductFilters,
+} from "@/hooks/product-listing";
 import { listingPayload } from "@/app/lib/constant";
 import ProductCardSkeleton from "./product-cart-skeleton";
 import { Sorting } from "../sorting/sorting";
