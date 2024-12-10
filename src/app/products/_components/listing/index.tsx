@@ -29,7 +29,7 @@ const ProductsList = (props: ProductListingProps) => {
   } = useProductFilters({
     brandsFilter:
       props?.filterOptions?.brand?.[0]?.filterFacetFieldsValues?.map(
-        (item: { filterSeName: string }) => item?.filterSeName
+        (item) => item?.filterSeName
       ),
   });
   const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
