@@ -32,11 +32,13 @@ const ProductsList = (props: ProductListingProps) => {
         (item) => item?.filterSeName
       ),
   });
+
   const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
     initialData: props.initialData,
     filtersUrl,
     facetsUrl,
   });
+
   const { fetchNextProducts } = useLoadMore({
     fetchProducts,
     sortBy,
