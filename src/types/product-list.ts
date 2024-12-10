@@ -19,6 +19,7 @@ type TFilterProps = {
     React.SetStateAction<Record<string, boolean>>
   >;
   handleResetFilters: () => void;
+  filterOptions: Array<string>;
 };
 
 export { type TProductList, type TFilterProps };

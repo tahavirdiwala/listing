@@ -1,7 +1,6 @@
 "use client";
 import { CheckBox } from "@/components/shared/checkbox";
 import { BrandsFilterContext } from "@/context";
-import { brandsArray } from "@/app/lib/constant";
 import { useSearchParams } from "next/navigation";
 import { useContext, useMemo } from "react";
 import { Button } from "@/components/shared/button";
@@ -49,7 +48,7 @@ export const BrandFilters = () => {
         />
       </div>
       <div className="flex flex-col p-2">
-        {brandsArray.map((item, index) => {
+        {context.filterOptions.map((item, index) => {
           return (
             <CheckBox
               key={index}

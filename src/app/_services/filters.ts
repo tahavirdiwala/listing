@@ -13,10 +13,13 @@ import {
   CUSTOM_PRODUCT_TYPE_FACET_ID,
   CUSTOM_SIZE_FACET_ID,
   GENDER_FACET_SENAME,
+  IN_STOCK,
   PRICE_RANGE_FACET_SENAME,
   PRODUCT_TYPE_FACET_SENAME,
   SIZE_FACET_SENAME,
-} from "../lib/listing.constant";
+  SORT,
+  TAGS,
+} from "@/app/lib/listing.constant";
 
 const IS_AND_FACETS: any = [];
 
@@ -441,7 +444,7 @@ const updateCount = ({
       const priceFilterOption = filter[0];
 
       if (
-        keyToMatch.productPrice > priceFilterOption.from &&
+        keyToMatch.productPrice > priceFilterOption?.from &&
         keyToMatch.productPrice < priceFilterOption.to
       ) {
         updateCount = true;
@@ -1344,4 +1347,386 @@ export const updateRequiredFieldsToAppliedFilters = ({
   }
 
   return selectedFilters;
+};
+
+export const pagination = (
+  sort: SORT,
+  page: string,
+  rawinstock: string
+): {
+  startIndex: number;
+  endIndex: number;
+  sortBy: SORT;
+  currentPage: number;
+  itemsPerPage: number;
+  stockType: IN_STOCK;
+  isStockAvailable: boolean;
+} => {
+  const sortBy: SORT = sort ? (sort as unknown as SORT) : SORT.RELEVANCE;
+  const pageNo = +(page || 1);
+  const itemsPerPage = 12;
+  let stockType = 1;
+  let isStockAvailable = false;
+
+  switch (rawinstock) {
+    case "true":
+      stockType = 2;
+      isStockAvailable = true;
+      break;
+
+    case "false":
+      stockType = 1;
+      isStockAvailable = false;
+      break;
+
+    default:
+      stockType = 1;
+      isStockAvailable = false;
+      break;
+  }
+
+  return {
+    itemsPerPage: itemsPerPage,
+    startIndex: (pageNo - 1) * itemsPerPage,
+    endIndex: pageNo * itemsPerPage - 1,
+    sortBy: sortBy,
+    currentPage: pageNo,
+    stockType: stockType,
+    isStockAvailable,
+  };
+};
+
+const calculateRank = (priorities: Record<TAGS, number>, tags: any) => {
+  let rank = 0;
+  let highestPriorityScore = 0;
+  const total = 100; // instead it should be total of priorities
+  const totalTags = tags.length;
+  tags.forEach((tag: any) => {
+    const priorityScore = priorities[tag.productTagName.toLowerCase() as TAGS];
+
+    if (totalTags === 1) {
+      rank += priorityScore * priorityScore * priorityScore + total;
+      return;
+    }
+
+    if (priorityScore > highestPriorityScore)
+      highestPriorityScore = priorityScore;
+
+    rank += priorityScore;
+  });
+  // Adjust rank based on the number of elements
+
+  if (totalTags === 1) return rank;
+
+  return (
+    highestPriorityScore * highestPriorityScore * highestPriorityScore -
+    (rank - highestPriorityScore)
+  );
+};
+
+export const sortProducts = ({
+  sortBy,
+  filtered,
+  isUserLoggedIn,
+}: {
+  sortBy: SORT;
+  filtered: any;
+  isUserLoggedIn: boolean;
+}) => {
+  if (sortBy === SORT.QUICK_SHIP || sortBy === SORT.RELEVANCE) {
+    const priorities = {
+      [TAGS.QUICK_SHIP]: 7,
+      [TAGS.HIGH_STOCK]: 6,
+      [TAGS.BEST_SELLER]: 5,
+      [TAGS.BEST_SELLER_FEATURED]: 4,
+      [TAGS.JUST_IN]: 3,
+      [TAGS.LOW_STOCK]: 2,
+      [TAGS.SALE]: 1,
+    };
+
+    const sorted: any = filtered.slice().sort((a, b) => {
+      const rankA = calculateRank(priorities, a.productTagViewModel);
+      const rankB = calculateRank(priorities, b.productTagViewModel);
+      return rankB - rankA;
+    });
+    return sorted;
+  }
+
+  if (sortBy === SORT.HIGH_STOCK) {
+    const priorities = {
+      [TAGS.HIGH_STOCK]: 7,
+      [TAGS.QUICK_SHIP]: 6,
+      [TAGS.BEST_SELLER]: 5,
+      [TAGS.BEST_SELLER_FEATURED]: 4,
+      [TAGS.JUST_IN]: 3,
+      [TAGS.LOW_STOCK]: 2,
+      [TAGS.SALE]: 1,
+    };
+
+    const sorted: any = filtered.slice().sort((a: any, b: any) => {
+      const rankA = calculateRank(priorities, a.productTagViewModel);
+      const rankB = calculateRank(priorities, b.productTagViewModel);
+      return rankB - rankA;
+    });
+
+    return sorted;
+  }
+
+  if (sortBy === SORT.BEST_SELLER) {
+    const priorities = {
+      [TAGS.BEST_SELLER]: 7,
+      [TAGS.BEST_SELLER_FEATURED]: 6,
+      [TAGS.QUICK_SHIP]: 5,
+      [TAGS.HIGH_STOCK]: 4,
+      [TAGS.JUST_IN]: 3,
+      [TAGS.LOW_STOCK]: 2,
+      [TAGS.SALE]: 1,
+    };
+
+    const sorted: any = filtered.slice().sort((a: any, b: any) => {
+      const rankA = calculateRank(priorities, a.productTagViewModel);
+      const rankB = calculateRank(priorities, b.productTagViewModel);
+      return rankB - rankA;
+    });
+
+    return sorted;
+  }
+  if (sortBy === SORT.JUST_IN) {
+    const priorities = {
+      [TAGS.JUST_IN]: 7,
+      [TAGS.QUICK_SHIP]: 6,
+      [TAGS.HIGH_STOCK]: 5,
+      [TAGS.BEST_SELLER]: 4,
+      [TAGS.BEST_SELLER_FEATURED]: 3,
+      [TAGS.LOW_STOCK]: 2,
+      [TAGS.SALE]: 1,
+    };
+
+    const sorted: any = filtered.slice().sort((a, b) => {
+      const rankA = calculateRank(priorities, a.productTagViewModel);
+      const rankB = calculateRank(priorities, b.productTagViewModel);
+      return rankB - rankA;
+    });
+
+    return sorted;
+  }
+
+  if (sortBy === SORT.LOW_TO_HIGH) {
+    return filtered.slice().sort((a: any, b: any) => {
+      if (isUserLoggedIn) return a.salePrice - b.salePrice;
+      return a.msrp - b.msrp;
+    });
+  }
+
+  if (sortBy === SORT.HIHT_TO_LOW) {
+    return filtered.slice().sort((a: any, b: any) => {
+      if (isUserLoggedIn) return b.salePrice - a.salePrice;
+      return b.msrp - a.msrp;
+    });
+  }
+
+  return filtered;
+};
+
+export const removeDuplicates = (arr: string[]) => {
+  const unique: string[] = [];
+  arr.forEach((element) => {
+    if (!unique.includes(element)) {
+      unique.push(element);
+    }
+  });
+  return unique;
+};
+
+const extractPredefinedFacetNFilter = (
+  filterFacetUrl: string | null
+): {
+  facets: string[];
+  filters: string[];
+} => {
+  if (!filterFacetUrl) {
+    return {
+      facets: [],
+      filters: [],
+    };
+  }
+
+  const facetNFilters = filterFacetUrl.split("/");
+  const filters = decodeURIComponent(facetNFilters[1])
+    .replace(" ", "-")
+    .split(",");
+  const facets = decodeURIComponent(facetNFilters[0]).split(",");
+
+  return {
+    facets: facets,
+    filters: filters,
+  };
+};
+
+export const extractFacetsAndFilters = ({
+  encodedFacets,
+  encodedFilters,
+  filterFacetUrl,
+}: any): any => {
+  const filterFacets: any[] = [];
+  const filtersChips: {
+    facetSeName: string;
+    filterSeName: string;
+    allowToRemoveFromChip: boolean;
+  }[] = [];
+
+  //
+  try {
+    let predefinedFacetExistInParam = false;
+
+    if (encodedFacets && encodedFilters) {
+      // when both fitlerFacet and params contains value
+      const facets = removeDuplicates(
+        decodeURIComponent(encodedFacets).split(",")
+      );
+      const filters = decodeURIComponent(encodedFilters).split(",");
+
+      const predefinedFacetNFilter =
+        extractPredefinedFacetNFilter(filterFacetUrl);
+
+      facets.forEach((facet, index) => {
+        const filtersByOneParticularFacet = filters[index];
+        //
+        let predefinedFacetExist: {
+          facet: string | null;
+          filters: string;
+        } = {
+          facet: null,
+          filters: "",
+        };
+
+        predefinedFacetNFilter.facets.find(
+          (predefinedFacet: any, index: any) => {
+            if (predefinedFacet === facet) {
+              predefinedFacetExist = {
+                facet: predefinedFacet,
+                filters: predefinedFacetNFilter.filters[index],
+              };
+            }
+          }
+        );
+
+        // if filter and facet are present on filterFacetURL.
+        const predefinedFacets = predefinedFacetExist
+          ? predefinedFacetExist?.filters.split("~")
+          : [];
+        if (predefinedFacetExist.facet) {
+          predefinedFacetExistInParam = true;
+          filterFacets.push({
+            name: facet,
+            value: [
+              ...filtersByOneParticularFacet.split("~"),
+              ...predefinedFacetExist.filters.split("~"),
+            ], // here we are addding fitlers and facets from filterFacetURL and params for API call
+          });
+
+          filtersByOneParticularFacet.split("~").forEach((filter) => {
+            filtersChips.push({
+              facetSeName: facet,
+              filterSeName: filter,
+              allowToRemoveFromChip: true, // here we are adding filters and facets extracted from params
+            });
+          });
+
+          predefinedFacetExist.filters
+            .split("~")
+            .forEach((predefinedFilter) => {
+              filtersChips.push({
+                facetSeName: facet,
+                filterSeName: predefinedFilter,
+                allowToRemoveFromChip: false, // here we are addding fitlers and facets from filterFacetURL
+              });
+            });
+
+          return;
+        }
+
+        // if no filter and facet are present on filterFacetURL.
+        filterFacets.push({
+          name: facet,
+          value: filtersByOneParticularFacet.toLowerCase().split("~"),
+        });
+
+        filtersByOneParticularFacet.split("~").forEach((filter) => {
+          const filterName = filter;
+
+          filtersChips.push({
+            facetSeName: facet.toLowerCase(),
+            filterSeName: filterName.toLowerCase(),
+            allowToRemoveFromChip: true,
+          });
+        });
+      });
+    }
+
+    // incase if no params are found and filterFacetURL contains value.
+    if (!predefinedFacetExistInParam) {
+      const { facets, filters } = extractPredefinedFacetNFilter(filterFacetUrl);
+
+      facets.forEach((facet: any, index: any) => {
+        const filtersByFacet = filters[index];
+        facet = facet.replace(" ", "-");
+
+        filterFacets.push({
+          name: facet,
+          value: filtersByFacet.split("~"),
+        });
+
+        filtersByFacet.split("~").forEach((filter: any) => {
+          filtersChips.push({
+            facetSeName: facet,
+            filterSeName: filter,
+            allowToRemoveFromChip: false,
+          });
+        });
+      });
+    }
+    // add zone only over here either in absence of params or zone not added manually through params.
+    return {
+      filterFacets,
+      filtersChips,
+    };
+  } catch (error: any) {
+    throw new Error(
+      error?.message || "Occurred while extracting filters and facets"
+    );
+  }
+};
+
+export const extractSlugName = (
+  contextParam: string[]
+): {
+  sename: string;
+  otherParams: string[] | null;
+  path: string;
+} => {
+  if (contextParam) {
+    const params = contextParam as string[];
+
+    if (params && params.length > 0) {
+      const lastElementIndex = params.length - 1;
+      const sename = params[lastElementIndex].replace(".html", "");
+
+      if (params.length === 1) {
+        return {
+          sename: sename,
+          otherParams: null,
+          path: params.join("/"),
+        };
+      }
+      params.pop();
+      return {
+        sename: sename,
+        otherParams: params,
+        path: params.join("/"),
+      };
+    }
+  }
+
+  return { sename: "/", otherParams: null, path: "" };
 };

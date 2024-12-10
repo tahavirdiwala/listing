@@ -94,17 +94,11 @@ const brandsArray = [
 const defaultImagePath =
   "https://corporategear.com/cdn-cgi/image/height=348,quality=100/https://storagemedia.corporategear.com/";
 
-const brandsMapper = brandsArray.reduce(
-  (acc, curr) => ({ ...acc, [curr]: false }),
-  {} as Record<string, boolean>
-);
-
 export {
   Sort,
   listingPayload,
   SortOptions,
   filterPayload,
   brandsArray,
-  brandsMapper,
   defaultImagePath,
 };

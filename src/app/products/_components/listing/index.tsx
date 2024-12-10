@@ -14,12 +14,22 @@ import Filters from "../filters";
 import { ProductListingCard } from "./product-listing-card";
 import { BrandsFilterContext } from "@/context";
 
-const ProductsList = ({ initialData }: { initialData: TProductList }) => {
+type ProductListingProps = {
+  initialData: TProductList;
+  filterOptions: Record<string, Array<any>>;
+};
+
+const ProductsList = (props: ProductListingProps) => {
   const {
     brands: { facetsUrl, filtersUrl, ...brands },
-  } = useProductFilters();
+  } = useProductFilters({
+    brandsFilter:
+      props?.filterOptions?.brand?.[0]?.filterFacetFieldsValues?.map(
+        (item: { filterSeName: string }) => item?.filterSeName
+      ),
+  });
   const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
-    initialData,
+    initialData: props.initialData,
     filtersUrl,
     facetsUrl,
   });
@@ -45,13 +55,22 @@ const ProductsList = ({ initialData }: { initialData: TProductList }) => {
     sortBy.length,
   ]);
 
+  const brandsFilter =
+    props?.filterOptions?.brand?.[0]?.filterFacetFieldsValues?.map(
+      (item: { filterSeName: string }) => item?.filterSeName
+    );
+
   const productListData = listing.products?.data?.body
     ?.toShow as TProductList["body"]["toShow"];
 
   return (
     <div className="flex justify-center m-[3rem] gap-5">
       <BrandsFilterContext.Provider
-        value={{ ...brands, loading: listing.loading }}
+        value={{
+          ...brands,
+          filterOptions: brandsFilter,
+          loading: listing.loading,
+        }}
       >
         <Filters />
       </BrandsFilterContext.Provider>

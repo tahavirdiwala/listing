@@ -1,10 +1,17 @@
 "use client";
-import { brandsMapper } from "@/app/lib/constant";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export const useProductFilters = () => {
+type TProductFilterProps = {
+  brandsFilter: Array<string>;
+};
+
+export const useProductFilters = (props: TProductFilterProps) => {
   const searchParams = useSearchParams();
+  const brandsMapper = props.brandsFilter.reduce(
+    (acc, curr) => ({ ...acc, [curr]: false }),
+    {} as Record<string, boolean>
+  );
   const [brandsFilter, setBrandsFilter] = useState(() => {
     const params = new URLSearchParams(searchParams.toString());
     const initialBrands = { ...brandsMapper };
