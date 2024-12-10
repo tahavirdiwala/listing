@@ -9,7 +9,7 @@ type TSortingProps = {
 export const Sorting = (props: TSortingProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const hasSorts = (searchParams.get("sort") || "").length === 0;
+  const hasSort = (searchParams.get("sort") || "").length === 0;
 
   const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const sortedValue = event.target.value;
@@ -48,9 +48,9 @@ export const Sorting = (props: TSortingProps) => {
         <div className="flex items-center">
           <div className="flex gap-3 relative inline-block text-left">
             <button
-              className={`${hasSorts ? "cursor-not-allowed" : ""}`}
+              className={`${hasSort ? "cursor-not-allowed" : ""}`}
               onClick={handleResetSort}
-              disabled={hasSorts}
+              disabled={hasSort}
             >
               Reset sorts
             </button>
