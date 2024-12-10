@@ -16,7 +16,11 @@ import { BrandsFilterContext } from "@/context";
 
 type ProductListingProps = {
   initialData: TProductList;
-  filterOptions: Record<string, Array<any>>;
+  filterOptions: {
+    brand: Array<{
+      filterFacetFieldsValues: { filterSeName: string }[];
+    }>;
+  };
 };
 
 const ProductsList = (props: ProductListingProps) => {
