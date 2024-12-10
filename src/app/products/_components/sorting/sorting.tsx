@@ -4,11 +4,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type TSortingProps = {
   setSortBy: (value: string) => void;
+  commonProductList: (obj?: object) => void;
 };
 
 export const Sorting = (props: TSortingProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const hasSorts = (searchParams.get("sort") || "").length === 0;
 
   const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const sortedValue = event.target.value;
@@ -28,11 +30,31 @@ export const Sorting = (props: TSortingProps) => {
     props.setSortBy(sortedValue);
   };
 
+  const handleResetSorting = () => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.delete("sort");
+
+    const newUrl = `?${params.toString()}`;
+
+    if (window.location.search !== newUrl) {
+      router.push(newUrl);
+      props.commonProductList({ sortBy: "" });
+    }
+  };
+
   return (
     <div className=" w-full">
       <div className="bg-[#f5f5f6] flex md:justify-end mx-auto pl-[16px] sm:pl-[24px] lg:pl-[32px] z-40">
         <div className="flex items-center">
           <div className="flex gap-3 relative inline-block text-left">
+            <button
+              className={`${hasSorts ? "cursor-not-allowed" : ""}`}
+              onClick={handleResetSorting}
+              disabled={hasSorts}
+            >
+              Reset sorts
+            </button>
             <p>Sort</p>
             <select
               className="bg-black text-white"

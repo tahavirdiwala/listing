@@ -63,14 +63,18 @@ export const useList = (props: TProductListProps) => {
     }
   }, []);
 
-  const commonProductList = useCallback(() => {
-    fetchProducts({
-      ...listingPayload,
-      sortBy,
-      filtersUrl: props.filtersUrl,
-      facetsUrl: props.facetsUrl,
-    });
-  }, [fetchProducts, props.facetsUrl, props.filtersUrl, sortBy]);
+  const commonProductList = useCallback(
+    (rest: object = {}) => {
+      fetchProducts({
+        ...listingPayload,
+        sortBy,
+        filtersUrl: props.filtersUrl,
+        facetsUrl: props.facetsUrl,
+        ...rest,
+      });
+    },
+    [fetchProducts, props.facetsUrl, props.filtersUrl, sortBy]
+  );
 
   return {
     products,
