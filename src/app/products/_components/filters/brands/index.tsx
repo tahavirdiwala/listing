@@ -53,12 +53,10 @@ export const BrandFilters = () => {
           return (
             <CheckBox
               key={index}
-              name="brand"
+              name={item}
               checked={Boolean(selectedBrandsParams[item])}
               onChange={(event) => handleSelectBrand(event, item)}
-            >
-              {item}
-            </CheckBox>
+            />
           );
         })}
       </div>
