@@ -61,7 +61,7 @@ const ProductsList = (props: ProductListingProps) => {
 
   const brandsFilter =
     props?.filterOptions?.brand?.[0]?.filterFacetFieldsValues?.map(
-      (item: { filterSeName: string }) => item?.filterSeName
+      (item) => item?.filterSeName
     );
 
   const productListData = listing.products?.data?.body
