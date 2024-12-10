@@ -9,7 +9,7 @@ type TProductFilterProps = {
 
 export const useProductFilters = (props: TProductFilterProps) => {
   const searchParams = useSearchParams();
-  const brandsMapper = getMapper(props.brandsFilter);
+  const brandsMapper = getMapper(props.brandsFilter, false);
 
   const [brandsFilter, setBrandsFilter] = useState(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -41,7 +41,7 @@ export const useProductFilters = (props: TProductFilterProps) => {
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
-    const updatedBrandsFilter = getMapper(selectedBrands, true);
+    const updatedBrandsFilter = getMapper(selectedBrands);
 
     setBrandsFilter((prev) => {
       const isDifferent = Object.keys(updatedBrandsFilter).some(

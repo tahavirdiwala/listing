@@ -12,7 +12,7 @@ export const BrandFilters = () => {
 
   const selectedBrandsParams = useMemo(() => {
     if (params.get("brand") == null) return {};
-    return getMapper((params.get("brand") || "").split("~"), true);
+    return getMapper((params.get("brand") || "").split("~"));
   }, [params]);
 
   /**

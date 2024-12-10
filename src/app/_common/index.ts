@@ -1,6 +1,6 @@
 const getMapper = (
   array: string[],
-  predicate = false
+  predicate = true
 ): Record<string, boolean> => {
   return array.reduce((acc, curr) => ({ ...acc, [curr]: predicate }), {});
 };
