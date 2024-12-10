@@ -12,11 +12,11 @@ type TProductListProps = {
 };
 
 export const useList = (props: TProductListProps) => {
-  const searchParams = useSearchParams();
-  const [sortBy, setSortBy] = useState(() => searchParams.get("sort") || "");
+  const [products, setProducts] = useState({ data: props?.initialData });
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [products, setProducts] = useState({ data: props?.initialData });
+  const searchParams = useSearchParams();
+  const [sortBy, setSortBy] = useState(() => searchParams.get("sort") || "");
 
   const fetchProducts = useCallback(async ({ loadMore = false, ...mapper }) => {
     if (!loadMore) setLoading(true);
