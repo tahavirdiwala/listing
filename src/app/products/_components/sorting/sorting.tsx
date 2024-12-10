@@ -11,11 +11,11 @@ export const Sorting = (props: TSortingProps) => {
   const router = useRouter();
 
   const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const sortedKey = event.target.value;
+    const sortedValue = event.target.value;
     const params = new URLSearchParams(searchParams.toString());
 
-    if (sortedKey.length > 0) {
-      params.set("sort", sortedKey);
+    if (sortedValue.length > 0) {
+      params.set("sort", sortedValue);
     } else {
       params.delete("sort");
     }
@@ -25,7 +25,7 @@ export const Sorting = (props: TSortingProps) => {
       router.push(newUrl);
     }
 
-    props.setSortBy(sortedKey);
+    props.setSortBy(sortedValue);
   };
 
   return (
