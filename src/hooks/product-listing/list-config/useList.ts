@@ -2,6 +2,7 @@
 import productService from "@/app/_services/product.service";
 import { listingPayload } from "@/app/lib/constant";
 import { type TProductList } from "@/types/product-list";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 
 type TProductListProps = {
@@ -11,7 +12,8 @@ type TProductListProps = {
 };
 
 export const useList = (props: TProductListProps) => {
-  const [sortBy, setSortBy] = useState("");
+  const searchParams = useSearchParams();
+  const [sortBy, setSortBy] = useState(() => searchParams.get("sort") || "");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [products, setProducts] = useState({ data: props?.initialData });

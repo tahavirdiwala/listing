@@ -1,13 +1,31 @@
 "use client";
 import { SortOptions } from "@/app/lib/constant";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type TSortingProps = {
   setSortBy: (value: string) => void;
 };
 
 export const Sorting = (props: TSortingProps) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    props.setSortBy(event.target.value);
+    const sortedKey = event.target.value;
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (sortedKey.length > 0) {
+      params.set("sort", sortedKey);
+    } else {
+      params.delete("sort");
+    }
+
+    const newUrl = `?${params.toString()}`;
+    if (window.location.search !== newUrl) {
+      router.push(newUrl);
+    }
+
+    props.setSortBy(sortedKey);
   };
 
   return (
