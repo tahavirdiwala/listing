@@ -11,7 +11,7 @@ import Filters from "../filters";
 import { Sorting } from "../sorting/sorting";
 import { ProductListingCard } from "./product-listing-card";
 import ProductCardSkeleton from "./product-card-skeleton";
-import { type TProductList } from "@/types/product-list";
+import { type TProductList } from "@/types/products/listing";
 import { listingPayload } from "@/lib/listing.constant";
 
 type ProductListingProps = {

@@ -2,7 +2,7 @@
 import { useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import productService from "@/services/product.service";
-import { type TProductList } from "@/types/product-list";
+import { type TProductList } from "@/types/products/listing";
 import { listingPayload } from "@/lib/listing.constant";
 
 type TProductListProps = {
