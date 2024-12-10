@@ -1,18 +1,18 @@
 "use client";
 import React, { useEffect } from "react";
+import { BrandsFilterContext } from "@/context";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
   useLoadMore,
   useList,
   useProductFilters,
 } from "@/hooks/product-listing";
-import { listingPayload } from "@/lib/constant";
-import ProductCardSkeleton from "./product-card-skeleton";
-import { Sorting } from "../sorting/sorting";
-import { type TProductList } from "@/types/product-list";
 import Filters from "../filters";
+import { Sorting } from "../sorting/sorting";
 import { ProductListingCard } from "./product-listing-card";
-import { BrandsFilterContext } from "@/context";
+import ProductCardSkeleton from "./product-card-skeleton";
+import { listingPayload } from "@/lib/constant";
+import { type TProductList } from "@/types/product-list";
 
 type ProductListingProps = {
   initialData: TProductList;
