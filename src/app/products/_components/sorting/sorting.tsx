@@ -1,10 +1,9 @@
 "use client";
-import { SortOptions } from "@/lib/constant";
+import { SortOptions } from "@/lib/listing.constant";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type TSortingProps = {
   setSortBy: (value: string) => void;
-  commonProductList: (obj?: object) => void;
 };
 
 export const Sorting = (props: TSortingProps) => {
@@ -30,7 +29,7 @@ export const Sorting = (props: TSortingProps) => {
     props.setSortBy(sortedValue);
   };
 
-  const handleResetSorting = () => {
+  const handleResetSort = () => {
     const params = new URLSearchParams(searchParams.toString());
 
     params.delete("sort");
@@ -39,7 +38,7 @@ export const Sorting = (props: TSortingProps) => {
 
     if (window.location.search !== newUrl) {
       router.push(newUrl);
-      props.commonProductList({ sortBy: "" });
+      props.setSortBy("");
     }
   };
 
@@ -50,7 +49,7 @@ export const Sorting = (props: TSortingProps) => {
           <div className="flex gap-3 relative inline-block text-left">
             <button
               className={`${hasSorts ? "cursor-not-allowed" : ""}`}
-              onClick={handleResetSorting}
+              onClick={handleResetSort}
               disabled={hasSorts}
             >
               Reset sorts

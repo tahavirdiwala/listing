@@ -1,5 +1,5 @@
 import axios from "axios";
-import { listingPayload } from "../lib/constant";
+import { listingPayload } from "@/lib/listing.constant";
 
 class ProductService {
   getAll(payload = {}) {

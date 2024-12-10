@@ -11,8 +11,8 @@ import Filters from "../filters";
 import { Sorting } from "../sorting/sorting";
 import { ProductListingCard } from "./product-listing-card";
 import ProductCardSkeleton from "./product-card-skeleton";
-import { listingPayload } from "@/lib/constant";
 import { type TProductList } from "@/types/product-list";
+import { listingPayload } from "@/lib/listing.constant";
 
 type ProductListingProps = {
   initialData: TProductList;
@@ -68,10 +68,7 @@ const ProductsList = (props: ProductListingProps) => {
       </BrandsFilterContext.Provider>
 
       <div className="flex justify-center border border-green w-[1500px] flex-wrap gap-3">
-        <Sorting
-          setSortBy={listing.setSortBy}
-          commonProductList={commonProductList}
-        />
+        <Sorting setSortBy={listing.setSortBy} />
 
         <InfiniteScroll
           key={listingPayload.seName + listingPayload.sortBy}

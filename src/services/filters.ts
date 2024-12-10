@@ -1,5 +1,3 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { access, readFile, writeFile } from "fs/promises";
 import {
   BRAND_FACET_SENAME,
   CATEGORY_FACET_SENAME,
@@ -19,7 +17,9 @@ import {
   SIZE_FACET_SENAME,
   SORT,
   TAGS,
-} from "@/lib/listing.constant";
+} from "@/lib/constant";
+import axios, { AxiosRequestConfig } from "axios";
+import { access, readFile, writeFile } from "fs/promises";
 
 const IS_AND_FACETS: any = [];
 

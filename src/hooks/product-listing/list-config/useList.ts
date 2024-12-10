@@ -1,9 +1,9 @@
 "use client";
-import productService from "@/services/product.service";
-import { listingPayload } from "@/lib/constant";
-import { type TProductList } from "@/types/product-list";
+import { useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import productService from "@/services/product.service";
+import { type TProductList } from "@/types/product-list";
+import { listingPayload } from "@/lib/listing.constant";
 
 type TProductListProps = {
   initialData: TProductList;
