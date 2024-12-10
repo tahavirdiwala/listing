@@ -7,7 +7,7 @@ import {
   sortProducts,
   updateRequiredFieldsToAppliedFilters,
 } from "@/services/filters";
-import { SORT } from "@/lib/listing.constant";
+import { Sort } from "@/lib/listing.constant";
 
 export const getSlugResponse = async () => {
   const { otherParams } = extractSlugName([""]);
@@ -43,7 +43,7 @@ export const getSlugResponse = async () => {
     },
   });
 
-  const { sortBy } = pagination(SORT.RELEVANCE, "", "");
+  const { sortBy } = pagination(Sort.Relevance, "", "");
 
   const sortedProducts = sortProducts({
     sortBy: sortBy,

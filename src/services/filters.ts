@@ -15,7 +15,7 @@ import {
   PRICE_RANGE_FACET_SENAME,
   PRODUCT_TYPE_FACET_SENAME,
   SIZE_FACET_SENAME,
-  SORT,
+  Sort,
   TAGS,
 } from "@/lib/constant";
 import axios, { AxiosRequestConfig } from "axios";
@@ -116,14 +116,14 @@ export const getStaticProductListingData = async ({
   if (!listingFile)
     throw new Error(
       `Listing file not found for ${isBrand ? "brandId" : "categoryId"} =>` +
-        pageId
+      pageId
     );
   const listingData: { data: any } = JSON.parse(listingFile);
 
   if (!listingData)
     throw new Error(
       `Listing file is empty for ${isBrand ? "brandId" : "categoryId"} => ` +
-        pageId
+      pageId
     );
   return listingData.data;
 };
@@ -1350,19 +1350,19 @@ export const updateRequiredFieldsToAppliedFilters = ({
 };
 
 export const pagination = (
-  sort: SORT,
+  sort: Sort,
   page: string,
   rawinstock: string
 ): {
   startIndex: number;
   endIndex: number;
-  sortBy: SORT;
+  sortBy: Sort;
   currentPage: number;
   itemsPerPage: number;
   stockType: IN_STOCK;
   isStockAvailable: boolean;
 } => {
-  const sortBy: SORT = sort ? (sort as unknown as SORT) : SORT.RELEVANCE;
+  const sortBy: Sort = sort ? (sort as unknown as Sort) : Sort.Relevance;
   const pageNo = +(page || 1);
   const itemsPerPage = 12;
   let stockType = 1;
@@ -1429,11 +1429,11 @@ export const sortProducts = ({
   filtered,
   isUserLoggedIn,
 }: {
-  sortBy: SORT;
+  sortBy: Sort;
   filtered: any;
   isUserLoggedIn: boolean;
 }) => {
-  if (sortBy === SORT.QUICK_SHIP || sortBy === SORT.RELEVANCE) {
+  if (sortBy === Sort.QuickShip || sortBy === Sort.Relevance) {
     const priorities = {
       [TAGS.QUICK_SHIP]: 7,
       [TAGS.HIGH_STOCK]: 6,
@@ -1452,7 +1452,7 @@ export const sortProducts = ({
     return sorted;
   }
 
-  if (sortBy === SORT.HIGH_STOCK) {
+  if (sortBy === Sort.HighStock) {
     const priorities = {
       [TAGS.HIGH_STOCK]: 7,
       [TAGS.QUICK_SHIP]: 6,
@@ -1472,7 +1472,7 @@ export const sortProducts = ({
     return sorted;
   }
 
-  if (sortBy === SORT.BEST_SELLER) {
+  if (sortBy === Sort.BestSeller) {
     const priorities = {
       [TAGS.BEST_SELLER]: 7,
       [TAGS.BEST_SELLER_FEATURED]: 6,
@@ -1491,7 +1491,7 @@ export const sortProducts = ({
 
     return sorted;
   }
-  if (sortBy === SORT.JUST_IN) {
+  if (sortBy === Sort.JustIn) {
     const priorities = {
       [TAGS.JUST_IN]: 7,
       [TAGS.QUICK_SHIP]: 6,
@@ -1511,14 +1511,14 @@ export const sortProducts = ({
     return sorted;
   }
 
-  if (sortBy === SORT.LOW_TO_HIGH) {
+  if (sortBy === Sort.LowToHigh) {
     return filtered.slice().sort((a: any, b: any) => {
       if (isUserLoggedIn) return a.salePrice - b.salePrice;
       return a.msrp - b.msrp;
     });
   }
 
-  if (sortBy === SORT.HIHT_TO_LOW) {
+  if (sortBy === Sort.HighToLow) {
     return filtered.slice().sort((a: any, b: any) => {
       if (isUserLoggedIn) return b.salePrice - a.salePrice;
       return b.msrp - a.msrp;

@@ -49,14 +49,14 @@ export const QUERY_SORT = "sort";
 ////////////////////////////////////////
 ////////////////////////////////////////
 
-export enum SORT {
-  RELEVANCE = "relevance",
-  QUICK_SHIP = "quick-ship",
-  HIGH_STOCK = "high-stock",
-  BEST_SELLER = "best-seller",
-  JUST_IN = "just-in",
-  LOW_TO_HIGH = "low-to-high",
-  HIHT_TO_LOW = "high-to-low",
+export enum Sort {
+  Relevance = "relevance",
+  QuickShip = "quick-ship",
+  HighStock = "high-stock",
+  BestSeller = "best-seller",
+  JustIn = "just-in",
+  LowToHigh = "low-to-high",
+  HighToLow = "high-to-low",
 }
 
 export enum IN_STOCK {

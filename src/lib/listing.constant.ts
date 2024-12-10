@@ -1,4 +1,4 @@
-import { SORT } from "./constant";
+import { Sort } from "./constant";
 
 const listingPayload = {
   sortBy: "",
@@ -20,38 +20,38 @@ const filterPayload = {
   filterOptionforfaceteds: [],
 };
 
-const SortOptions: { name: string; type: SORT }[] = [
+const SortOptions: { name: string; type: Sort }[] = [
   {
     name: "Relevance",
-    type: SORT.RELEVANCE,
+    type: Sort.Relevance,
   },
   {
     name: "Quick Ship",
-    type: SORT.QUICK_SHIP,
+    type: Sort.QuickShip,
   },
   {
     name: "High Stock",
-    type: SORT.HIGH_STOCK,
+    type: Sort.HighStock,
   },
   {
     name: "Best Seller",
-    type: SORT.BEST_SELLER,
+    type: Sort.BestSeller,
   },
   {
     name: "Just In",
-    type: SORT.JUST_IN,
+    type: Sort.JustIn,
   },
   {
     name: "Price: (High to Low)",
-    type: SORT.HIHT_TO_LOW,
+    type: Sort.HighToLow,
   },
   {
     name: "Price: (Low to High)",
-    type: SORT.LOW_TO_HIGH,
+    type: Sort.LowToHigh,
   },
 ];
 
 const defaultImagePath =
   "https://corporategear.com/cdn-cgi/image/height=348,quality=100/https://storagemedia.corporategear.com/";
 
-export { SORT, listingPayload, SortOptions, filterPayload, defaultImagePath };
+export { Sort, listingPayload, SortOptions, filterPayload, defaultImagePath };
