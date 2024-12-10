@@ -68,7 +68,7 @@ const ProductsList = (props: ProductListingProps) => {
       </BrandsFilterContext.Provider>
 
       <div className="flex justify-center border border-green w-[1500px] flex-wrap gap-3">
-        <Sorting setSortBy={listing.setSortBy} />
+        <Sorting loading={listing.loading} setSortBy={listing.setSortBy} />
 
         <InfiniteScroll
           key={listingPayload.seName + listingPayload.sortBy}

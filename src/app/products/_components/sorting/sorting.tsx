@@ -3,13 +3,16 @@ import { SortOptions } from "@/lib/listing.constant";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type TSortingProps = {
+  loading: boolean;
   setSortBy: (value: string) => void;
 };
 
 export const Sorting = (props: TSortingProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const hasSort = (searchParams.get("sort") || "").length === 0;
+  const hasSort = Boolean(
+    (searchParams.get("sort") || "").length === 0 || props.loading
+  );
 
   const handleListSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const sortedValue = event.target.value;
