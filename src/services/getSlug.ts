@@ -6,8 +6,8 @@ import {
   pagination,
   sortProducts,
   updateRequiredFieldsToAppliedFilters,
-} from "@/app/_services/filters";
-import { SORT } from "@/app/lib/listing.constant";
+} from "@/services/filters";
+import { SORT } from "@/lib/listing.constant";
 
 export const getSlugResponse = async () => {
   const { otherParams } = extractSlugName([""]);

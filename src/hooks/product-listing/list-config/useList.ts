@@ -1,6 +1,6 @@
 "use client";
-import productService from "@/app/_services/product.service";
-import { listingPayload } from "@/app/lib/constant";
+import productService from "@/services/product.service";
+import { listingPayload } from "@/lib/constant";
 import { type TProductList } from "@/types/product-list";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";

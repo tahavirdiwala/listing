@@ -19,7 +19,7 @@ import {
   SIZE_FACET_SENAME,
   SORT,
   TAGS,
-} from "@/app/lib/listing.constant";
+} from "@/lib/listing.constant";
 
 const IS_AND_FACETS: any = [];
 

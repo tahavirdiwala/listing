@@ -4,7 +4,7 @@ import { BrandsFilterContext } from "@/context";
 import { useSearchParams } from "next/navigation";
 import { useContext, useMemo } from "react";
 import { Button } from "@/components/shared/button";
-import { getMapper } from "@/app/_common";
+import { getMapper } from "@/common";
 
 export const BrandFilters = () => {
   const params = useSearchParams();

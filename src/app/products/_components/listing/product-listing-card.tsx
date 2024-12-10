@@ -1,5 +1,5 @@
 "use client";
-import { defaultImagePath } from "@/app/lib/constant";
+import { defaultImagePath } from "@/lib/constant";
 import Image from "next/image";
 
 export type TProductListingProps = {

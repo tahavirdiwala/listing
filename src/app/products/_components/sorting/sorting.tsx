@@ -1,5 +1,5 @@
 "use client";
-import { SortOptions } from "@/app/lib/constant";
+import { SortOptions } from "@/lib/constant";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type TSortingProps = {

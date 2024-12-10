@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import ProductsList from "./_components/listing";
-import productService from "../_services/product.service";
-import { getSlugResponse } from "@/app/_services/getSlug";
+import productService from "../../services/product.service";
+import { getSlugResponse } from "@/services/getSlug";
 
 const Products = async () => {
   try {

@@ -1,5 +1,5 @@
 "use client";
-import { listingPayload } from "@/app/lib/constant";
+import { listingPayload } from "@/lib/constant";
 
 type TLoadMoreProps = {
   fetchProducts: (payload: object) => Promise<void>;

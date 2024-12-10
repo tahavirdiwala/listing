@@ -23,7 +23,7 @@ class ProductService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(listingPayload),
-      next: { revalidate: 60 * 100 }
+      next: { revalidate: 60 * 100 },
     });
   }
 

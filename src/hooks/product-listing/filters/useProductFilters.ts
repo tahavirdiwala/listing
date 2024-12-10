@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getMapper } from "@/app/_common";
+import { getMapper } from "@/common";
 
 type TProductFilterProps = {
   brandsFilter: Array<string>;
