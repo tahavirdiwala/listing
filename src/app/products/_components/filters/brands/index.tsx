@@ -46,7 +46,7 @@ export const BrandFilters = () => {
         />
       </div>
       <div className="flex flex-col p-2">
-        {context.filterOptions.map((item, index) => {
+        {context.brandsFilters.map((item, index) => {
           return (
             <CheckBox
               key={index}

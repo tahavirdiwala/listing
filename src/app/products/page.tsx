@@ -8,9 +8,13 @@ const Products = async () => {
     const response = await (await productService.getAllProductsSSR()).json();
     const filterOptions = await getSlugResponse();
 
+    const brandsFilters = filterOptions.brand[0]?.filterFacetFieldsValues?.map(
+      (item: { filterSeName: string }) => item?.filterSeName
+    );
+
     return (
       <Suspense fallback="loading..">
-        <ProductsList initialData={response} filterOptions={filterOptions} />
+        <ProductsList initialData={response} brandsFilter={brandsFilters} />
       </Suspense>
     );
   } catch (error) {

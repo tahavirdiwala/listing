@@ -16,22 +16,13 @@ import { BrandsFilterContext } from "@/context";
 
 type ProductListingProps = {
   initialData: TProductList;
-  filterOptions: {
-    brand: Array<{
-      filterFacetFieldsValues: { filterSeName: string }[];
-    }>;
-  };
+  brandsFilter: string[];
 };
 
 const ProductsList = (props: ProductListingProps) => {
   const {
     brands: { facetsUrl, filtersUrl, ...brands },
-  } = useProductFilters({
-    brandsFilter:
-      props?.filterOptions?.brand?.[0]?.filterFacetFieldsValues?.map(
-        (item) => item?.filterSeName
-      ),
-  });
+  } = useProductFilters({ brandsFilter: props.brandsFilter });
 
   const { fetchProducts, sortBy, commonProductList, ...listing } = useList({
     initialData: props.initialData,
@@ -61,11 +52,6 @@ const ProductsList = (props: ProductListingProps) => {
     sortBy.length,
   ]);
 
-  const brandsFilter =
-    props?.filterOptions?.brand?.[0]?.filterFacetFieldsValues?.map(
-      (item) => item?.filterSeName
-    );
-
   const productListData = listing.products?.data?.body
     ?.toShow as TProductList["body"]["toShow"];
 
@@ -74,7 +60,7 @@ const ProductsList = (props: ProductListingProps) => {
       <BrandsFilterContext.Provider
         value={{
           ...brands,
-          filterOptions: brandsFilter,
+          brandsFilters: props.brandsFilter,
           loading: listing.loading,
         }}
       >
