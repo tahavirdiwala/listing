@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getMapper } from "@/app/_common";
 
 type TProductFilterProps = {
   brandsFilter: Array<string>;
@@ -8,10 +9,8 @@ type TProductFilterProps = {
 
 export const useProductFilters = (props: TProductFilterProps) => {
   const searchParams = useSearchParams();
-  const brandsMapper = props.brandsFilter.reduce(
-    (acc, curr) => ({ ...acc, [curr]: false }),
-    {} as Record<string, boolean>
-  );
+  const brandsMapper = getMapper(props.brandsFilter);
+
   const [brandsFilter, setBrandsFilter] = useState(() => {
     const params = new URLSearchParams(searchParams.toString());
     const initialBrands = { ...brandsMapper };
@@ -42,11 +41,7 @@ export const useProductFilters = (props: TProductFilterProps) => {
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
-
-    const updatedBrandsFilter = selectedBrands.reduce((acc, curr) => {
-      acc[curr] = true;
-      return acc;
-    }, {} as { [key: string]: boolean });
+    const updatedBrandsFilter = getMapper(selectedBrands, true);
 
     setBrandsFilter((prev) => {
       const isDifferent = Object.keys(updatedBrandsFilter).some(

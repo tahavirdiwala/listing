@@ -4,6 +4,7 @@ import { BrandsFilterContext } from "@/context";
 import { useSearchParams } from "next/navigation";
 import { useContext, useMemo } from "react";
 import { Button } from "@/components/shared/button";
+import { getMapper } from "@/app/_common";
 
 export const BrandFilters = () => {
   const params = useSearchParams();
@@ -11,10 +12,7 @@ export const BrandFilters = () => {
 
   const selectedBrandsParams = useMemo(() => {
     if (params.get("brand") == null) return {};
-    return (params.get("brand") || "").split("~").reduce((acc, curr) => {
-      acc[curr] = true;
-      return acc;
-    }, {} as Record<string, boolean>);
+    return getMapper((params.get("brand") || "").split("~"), true);
   }, [params]);
 
   /**
