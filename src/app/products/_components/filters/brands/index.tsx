@@ -15,6 +15,9 @@ export const BrandFilters = () => {
     return getMapper((params.get("brand") || "").split("~"));
   }, [params]);
 
+  const hasFilters =
+    Object.keys(selectedBrandsParams).length === 0 || context.loading;
+
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} event checked event for checkbox
    * @param {string} key specifying key for selectedBrand
@@ -28,9 +31,6 @@ export const BrandFilters = () => {
       [key]: event.target.checked,
     }));
   };
-
-  const hasFilters =
-    Object.keys(selectedBrandsParams).length === 0 || context.loading;
 
   return (
     <>
